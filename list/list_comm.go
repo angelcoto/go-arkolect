@@ -37,3 +37,7 @@ func printLine(lineObj file) {
 		lineObj.modtime.Format(time.RFC3339),
 		lineObj.pathname)
 }
+
+func printError(err error) {
+	fmt.Printf("* Error: %s\n", err)
+}

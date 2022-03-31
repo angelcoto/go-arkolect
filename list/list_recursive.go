@@ -1,7 +1,6 @@
 package list
 
 import (
-	"fmt"
 	"os"
 	"path/filepath"
 	"sync"
@@ -12,7 +11,7 @@ import (
 func imprimeSalida(done chan bool) {
 	for resultado := range resultados {
 		if resultado.err != nil {
-			fmt.Printf("* Error: %s\n", resultado.err)
+			printError(resultado.err)
 		} else {
 			printLine(resultado.fileProp)
 		}
@@ -46,6 +45,7 @@ var resultados = make(chan tresultado, totalresultados)
 // wg.Done()
 func workerHash(wg *sync.WaitGroup, algo string) {
 	fileProp := file{}
+
 	//Recorre el buffer de jobs
 	for job := range jobs {
 
@@ -68,15 +68,12 @@ func creaWorkerPool(nWorkers int, algo string) {
 	close(resultados) // Para indicarle al lector del buffer que no hay más valores a enviar
 }
 
-// SumRecursivo imprime el hash para los archivos de un directorio,
+// ListRecursive imprime el hash para los archivos de un directorio,
 // incluyendo los subdirectorios.
-func ListRecursivo(dir string, algo string) {
-
-	fmt.Println("With goroutine")
+func ListRecursive(dir string, algo string) {
 
 	done := make(chan bool)
 
-	//
 	go func() {
 
 		i := 0
@@ -86,7 +83,6 @@ func ListRecursivo(dir string, algo string) {
 				return err
 			}
 
-			//fmt.Println(path, info.IsDir(), algo)
 			if !info.IsDir() {
 				jobs <- tjob{info, filepath.Dir(path)}
 				i++

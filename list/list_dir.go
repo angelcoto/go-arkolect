@@ -5,9 +5,9 @@ import (
 	"io/ioutil"
 )
 
-// SumDirectorio imprime el hash para los archivos
+// ListDirectory imprime el hash para los archivos
 // de un directorio, sin incluir los subdirectorios
-func ListDirectorio(dir string, algo string) {
+func ListDirectory(dir string, algo string) {
 
 	archivos, err := ioutil.ReadDir(dir)
 
@@ -24,7 +24,7 @@ func ListDirectorio(dir string, algo string) {
 
 			fileLine, err := fileLine.getFileProp(f, dir, algo)
 			if err != nil {
-				fmt.Printf("* Error: %s\n", err)
+				printError(err)
 			} else {
 				printLine(fileLine)
 			}
