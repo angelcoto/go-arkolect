@@ -8,7 +8,7 @@ import (
 
 // imprimeSalida lee el buffer de resultados para imprimir cada resultado a terminal.
 // La rutina se mantiene en ejecución hasta que el buffer es cerrado.
-func imprimeSalida(done chan bool) {
+func imprimeSalida(done chan struct{}) {
 	for resultado := range resultados {
 		if resultado.err != nil {
 			printError(resultado.err)
@@ -16,7 +16,7 @@ func imprimeSalida(done chan bool) {
 			printLine(resultado.fileProp)
 		}
 	}
-	done <- true // Informa a la función de llamado que el trabajo ha finalizado
+	done <- struct{}{} // Informa a la función de llamado que el trabajo ha finalizado
 }
 
 // Definición del buffer para jobs.
@@ -72,7 +72,7 @@ func creaWorkerPool(nWorkers int, algo string) {
 // incluyendo los subdirectorios.
 func ListRecursive(dir string, algo string) {
 
-	done := make(chan bool)
+	done := make(chan struct{})
 
 	go func() {
 
