@@ -72,8 +72,6 @@ func creaWorkerPool(nWorkers int, algo string) {
 // incluyendo los subdirectorios.
 func ListRecursive(dir string, algo string) {
 
-	done := make(chan struct{})
-
 	go func() {
 
 		i := 0
@@ -92,7 +90,9 @@ func ListRecursive(dir string, algo string) {
 		close(jobs) // Para indicarle al lector del buffer que no hay más valores a enviar
 	}()
 
+	done := make(chan struct{})
 	go imprimeSalida(done)
+
 	creaWorkerPool(totalworkers, algo)
 
 	<-done // Genera un bloqueo hasta que ha finalizado la impresión de todos los resultados
