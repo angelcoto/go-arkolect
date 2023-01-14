@@ -11,8 +11,6 @@ import (
 	"github.com/angelcoto/go-arkolect/list"
 )
 
-const line = "----------------------------------------------------------------"
-
 func header(t time.Time, dir string) {
 	usuario, err := user.Current()
 	if err != nil {
@@ -22,11 +20,11 @@ func header(t time.Time, dir string) {
 	fmt.Println("Inventario generado por:", usuario.Username)
 	fmt.Println("Ruta: ", dir)
 	fmt.Println("Inicio:", t.Format(time.RFC3339))
-	fmt.Println(line)
+	fmt.Println("----------------------------------------------------------------")
 }
 
 func footer(start time.Time) {
-	fmt.Println(line)
+	fmt.Println("----------------------------------------------------------------")
 	fmt.Println("Fin:", time.Now().Format(time.RFC3339))
 	fmt.Println("Duración: ", time.Since(start))
 }
