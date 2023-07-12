@@ -1,6 +1,7 @@
 package list
 
 import (
+	"fmt"
 	"os"
 	"path/filepath"
 	"sync"
@@ -51,8 +52,7 @@ func workerHash(wg *sync.WaitGroup, algo string) {
 
 		//hash, err := hash.SumArchivo(job.path, job.algo)
 		fileProp, err := fileProp.getFileProp(job.fileInfo, job.path, algo)
-		resultado := tresultado{fileProp, err}
-		resultados <- resultado
+		resultados <- tresultado{fileProp, err}
 	}
 	wg.Done()
 }
@@ -78,7 +78,8 @@ func ListRecursive(dir string, algo string) {
 		filepath.Walk(dir, func(path string, info os.FileInfo, err error) error {
 
 			if err != nil {
-				return err
+				// return err
+				fmt.Println("* Error: ", err)
 			}
 
 			if !info.IsDir() {
