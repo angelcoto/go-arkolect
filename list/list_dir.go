@@ -24,7 +24,7 @@ func ListDirectory(dir string, algo string) {
 
 			fileLine, err := fileLine.getFileProp(f, dir, algo)
 			if err != nil {
-				printError(err)
+				PrintError(err)
 			} else {
 				printLine(fileLine)
 			}

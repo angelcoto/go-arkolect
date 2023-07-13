@@ -38,6 +38,6 @@ func printLine(lineObj file) {
 		lineObj.pathname)
 }
 
-func printError(err error) {
+func PrintError(err error) {
 	fmt.Printf("* Error: %s\n", err)
 }

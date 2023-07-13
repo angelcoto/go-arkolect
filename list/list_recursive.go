@@ -1,7 +1,6 @@
 package list
 
 import (
-	"fmt"
 	"os"
 	"path/filepath"
 	"sync"
@@ -12,7 +11,7 @@ import (
 func imprimeSalida(done chan struct{}) {
 	for resultado := range resultados {
 		if resultado.err != nil {
-			printError(resultado.err)
+			PrintError(resultado.err)
 		} else {
 			printLine(resultado.fileProp)
 		}
@@ -79,7 +78,7 @@ func ListRecursive(dir string, algo string) {
 
 			if err != nil {
 				// return err
-				fmt.Println("* Error: ", err)
+				PrintError(err)
 			}
 
 			if !info.IsDir() {
