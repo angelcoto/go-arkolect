@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"flag"
 	"fmt"
 	"log"
@@ -44,6 +45,7 @@ func main() {
 	algoPtr := flag.String("m", "sha1", "Algoritmo: md5, sha1, sha256")
 	recPtr := flag.Bool("r", false, "Recorrido recursivo")
 	verPtr := flag.Bool("v", false, "Muestra la versión del programa")
+	wrkPtr := flag.Int("w", 1, "Cantidad de workers (entre 1 y 5)")
 
 	flag.Parse()
 
@@ -59,13 +61,18 @@ func main() {
 		os.Exit(1)
 	}
 
+	if *wrkPtr < 1 || *wrkPtr > 5 {
+		list.PrintError(errors.New("valor fuera de rango permitido"))
+		os.Exit(1)
+	}
+
 	header(start, *dirPtr)
 	defer footer(start)
 
 	if !*recPtr {
 		list.ListDirectory(*dirPtr, *algoPtr)
 	} else {
-		list.ListRecursive(*dirPtr, *algoPtr)
+		list.ListRecursive(*dirPtr, *algoPtr, *wrkPtr)
 	}
 
 }

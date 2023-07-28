@@ -32,7 +32,8 @@ type tresultado struct {
 }
 
 const totaljobs = 20
-const totalworkers = 3
+
+// const totalworkers = 3
 const totalresultados = 10
 
 var jobs = make(chan tjob, totaljobs)
@@ -69,7 +70,7 @@ func creaWorkerPool(nWorkers int, algo string) {
 
 // ListRecursive imprime el hash para los archivos de un directorio,
 // incluyendo los subdirectorios.
-func ListRecursive(dir string, algo string) {
+func ListRecursive(dir string, algo string, wrk int) {
 
 	go func() {
 
@@ -93,7 +94,7 @@ func ListRecursive(dir string, algo string) {
 	done := make(chan struct{})
 	go imprimeSalida(done)
 
-	creaWorkerPool(totalworkers, algo)
+	creaWorkerPool(wrk, algo)
 
 	<-done // Genera un bloqueo hasta que ha finalizado la impresión de todos los resultados
 
