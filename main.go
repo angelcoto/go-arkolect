@@ -30,7 +30,7 @@ func footer(start time.Time) {
 	fmt.Println("Duración: ", time.Since(start))
 }
 
-const appVersion = "1.1.1"
+const appVersion = "1.1.2"
 
 func main() {
 
