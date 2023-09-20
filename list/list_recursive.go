@@ -78,14 +78,14 @@ func ListRecursive(dir string, algo string, wrk int) {
 		filepath.Walk(dir, func(path string, info os.FileInfo, err error) error {
 
 			if err != nil {
-				// return err
 				PrintError(err)
+			} else {
+				if !info.IsDir() {
+					jobs <- tjob{info, filepath.Dir(path)}
+					i++
+				}
 			}
 
-			if !info.IsDir() {
-				jobs <- tjob{info, filepath.Dir(path)}
-				i++
-			}
 			return nil
 		})
 		close(jobs) // Para indicarle al lector del buffer que no hay más valores a enviar

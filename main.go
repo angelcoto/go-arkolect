@@ -30,7 +30,7 @@ func footer(start time.Time) {
 	fmt.Println("Duración: ", time.Since(start))
 }
 
-const appVersion = "1.1.2"
+const appVersion = "1.1.3"
 
 func main() {
 
@@ -45,7 +45,7 @@ func main() {
 	algoPtr := flag.String("m", "sha1", "Algoritmo: md5, sha1, sha256")
 	recPtr := flag.Bool("r", false, "Recorrido recursivo")
 	verPtr := flag.Bool("v", false, "Muestra la versión del programa")
-	wrkPtr := flag.Int("w", 1, "Cantidad de workers (entre 1 y 5)")
+	wrkPtr := flag.Int("w", 1, "Cantidad de workers (entre 1 y 6)")
 
 	flag.Parse()
 
@@ -61,7 +61,7 @@ func main() {
 		os.Exit(1)
 	}
 
-	if *wrkPtr < 1 || *wrkPtr > 5 {
+	if *wrkPtr < 1 || *wrkPtr > 6 {
 		list.PrintError(errors.New("valor fuera de rango permitido"))
 		os.Exit(1)
 	}
